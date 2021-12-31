@@ -1,0 +1,19 @@
+
+<%= simple_form_for(@my_wine) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.association :appellation_winery, :label_method => lambda { |appellation_winery| "#{appellation_winery.winery.name} | #{appellation_winery.appellation.name}" } %>
+    <%= f.input :vintage %>
+    <%= f.input :quantity %>
+    <%= f.input :size, collection: SIZE %>
+    <%= f.input :wine_type, collection: WINE_TYPE %>
+    <%= f.association :my_wine_cellar %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

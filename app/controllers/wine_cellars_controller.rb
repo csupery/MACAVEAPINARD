@@ -22,6 +22,8 @@ class WineCellarsController < ApplicationController
   # POST /wine_cellars or /wine_cellars.json
   def create
     @wine_cellar = WineCellar.new(wine_cellar_params)
+    @my_wine_cellar = MyWineCellar.create(user: current_user, wine_cellar: @wine_cellar)
+
 
     respond_to do |format|
       if @wine_cellar.save

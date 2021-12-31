@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @my_wine_cellar.user_id %>
+</p>
+
+<p>
+  <strong>Winecellar:</strong>
+  <%= @my_wine_cellar.wine_cellar_id %>
+</p>
+
+<% @my_wines.each do |my_wine| %>
+      <tr>
+        <td><%= my_wine.name %></td>
+        <td><%= my_wine.appellation_winery.winery.name %></td>
+        <td><%= my_wine.appellation_winery.appellation.name %></td>
+        <td><%= my_wine.vintage %></td>
+        <td><%= my_wine.quantity %></td>
+        <td><%= link_to 'Show', my_wine %></td>
+        <td><%= link_to 'Edit', edit_my_wine_path(my_wine) %></td>
+        <td><%= link_to 'Destroy', my_wine, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+<%= link_to 'Edit', edit_my_wine_cellar_path(@my_wine_cellar) %> |
+<%= link_to 'Back', my_wine_cellars_path %>

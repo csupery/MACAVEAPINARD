@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @winery.name %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @winery.address %>
+</p>
+
+<%= link_to 'Edit', edit_winery_path(@winery) %> |
+<%= link_to 'Back', wineries_path %>

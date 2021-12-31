@@ -10,10 +10,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_29_141057) do
+ActiveRecord::Schema.define(version: 2021_12_31_112314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "appellation_wineries", force: :cascade do |t|
+    t.bigint "appellation_id", null: false
+    t.bigint "winery_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["appellation_id"], name: "index_appellation_wineries_on_appellation_id"
+    t.index ["winery_id"], name: "index_appellation_wineries_on_winery_id"
+  end
+
+  create_table "appellations", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "my_wine_cellars", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "wine_cellar_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_my_wine_cellars_on_user_id"
+    t.index ["wine_cellar_id"], name: "index_my_wine_cellars_on_wine_cellar_id"
+  end
+
+  create_table "my_wines", force: :cascade do |t|
+    t.string "name"
+    t.bigint "appellation_winery_id", null: false
+    t.integer "vintage"
+    t.integer "quantity"
+    t.bigint "my_wine_cellar_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "wine_type"
+    t.integer "size"
+    t.index ["appellation_winery_id"], name: "index_my_wines_on_appellation_winery_id"
+    t.index ["my_wine_cellar_id"], name: "index_my_wines_on_my_wine_cellar_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -34,4 +72,17 @@ ActiveRecord::Schema.define(version: 2021_12_29_141057) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "wineries", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  add_foreign_key "appellation_wineries", "appellations"
+  add_foreign_key "appellation_wineries", "wineries"
+  add_foreign_key "my_wine_cellars", "users"
+  add_foreign_key "my_wine_cellars", "wine_cellars"
+  add_foreign_key "my_wines", "appellation_wineries"
+  add_foreign_key "my_wines", "my_wine_cellars"
 end
