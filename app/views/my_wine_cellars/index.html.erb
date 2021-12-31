@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h1>My Wine Cellars</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Winecellar</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @my_wine_cellars.each do |my_wine_cellar| %>
+      <tr>
+        <td><%= my_wine_cellar.user.email %></td>
+        <td><%= my_wine_cellar.wine_cellar.name %></td>
+        <td><%= link_to 'Show', my_wine_cellar %></td>
+        <td><%= link_to 'Edit', edit_my_wine_cellar_path(my_wine_cellar) %></td>
+        <td><%= link_to 'Destroy', my_wine_cellar, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Add an existing wine cellar', new_my_wine_cellar_path %>
+<%= link_to 'New wine cellar', new_wine_cellar_path %>
